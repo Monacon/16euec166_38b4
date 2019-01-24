@@ -43,8 +43,8 @@ void setup()
 pinMode(D1,OUTPUT);
 pinMode(D2,OUTPUT);
 pinMode(D3,OUTPUT);
+pinMode(D6,INPUT);
 pinMode(D8,INPUT);
-pinMode(D9,INPUT);
   Blynk.begin(auth, ssid, pass);
   // You can also specify server:
   //Blynk.begin(auth, ssid, pass, "blynk-cloud.com", 80);
@@ -63,48 +63,61 @@ pinMode(D9,INPUT);
 void loop()
 {
   j=0;k=0;i=0,h=0;
+  digitalWrite(D2,LOW);
+    digitalWrite(D3,LOW);
+    digitalWrite(D1,LOW);
   lcd.clear(); 
   lcd.print(0,0, "Your option is"); 
   while(j!=1&&k!=2&&i!=3)
   {
     Blynk.run();
-    Serial.print(i+j+k);
+   // Serial.print(i+j+k);
   }
    if(j==1)
   {
       lcd.print(4,1, "APPLE"); 
     Serial.print(i);
     digitalWrite(D2,HIGH);
+    digitalWrite(D3,LOW);
+    digitalWrite(D1,LOW);
+    delay(4000);
     
   }
   if(i==3){
       lcd.print(4,1, "RICE"); 
     digitalWrite(D1,HIGH);
-    Serial.print(i);
+    digitalWrite(D2,LOW);
+    digitalWrite(D3,LOW);
+    delay(4000);
+    //Serial.print(i);
   }
   if(k==2)
   {
       lcd.print(4,1, "Bread"); 
     digitalWrite(D3,HIGH);
+    digitalWrite(D1,LOW);
+    digitalWrite(D2,LOW);
+    delay(4000);
   }
   //digitalWrite(D8,LOW);
-while (digitalRead(D6) == LOW) {
-  
-}
-  
-  if(D9==LOW)
+
+while((D6)==LOW)
+ {
+   
+ }
+  if(digitalRead(D8)==HIGH&&digitalRead(D6)==HIGH)
   {
      lcd.clear(); 
   lcd.print(0,0, "Your fOOD IS"); 
-  lcd.print(0,1, "AFFECTED"); 
-  delay(1000);
+  lcd.print(0,1, " NOT AFFECTED"); 
+  delay(3000);
   }
-  else
+  if(digitalRead(D8)==LOW&&digitalRead(D6)==HIGH)
   {
      lcd.clear(); 
   lcd.print(0,0, "Your fOOD IS"); 
-  lcd.print(0,1, "NOT AFFECTED"); 
-  delay(1000);
+  lcd.print(0,1, " AFFECTED"); 
+  delay(3000);
   }
   
   
